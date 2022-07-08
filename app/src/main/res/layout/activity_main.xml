@@ -24,7 +24,7 @@
         app:layout_constraintStart_toEndOf="@id/avatarAuthor"
         app:layout_constraintTop_toTopOf="@id/avatarAuthor"
         app:layout_constraintVertical_chainStyle="packed"
-        tools:text="Нетология. Университет интернет-професий." />
+        android:text="Нетология. Университет интернет-професий." />
 
     <TextView
         android:id="@+id/data"
@@ -35,7 +35,7 @@
         app:layout_constraintEnd_toEndOf="@id/textAuthor"
         app:layout_constraintStart_toStartOf="@id/textAuthor"
         app:layout_constraintTop_toBottomOf="@id/textAuthor"
-        tools:text="05.07.2022 в 15:30" />
+        android:text="05.07.2022 в 15:30" />
 
     <ImageView
         android:id="@+id/more"
@@ -78,7 +78,7 @@
         app:layout_constraintBottom_toBottomOf="@id/like"
         app:layout_constraintStart_toEndOf="@id/like"
         app:layout_constraintTop_toBottomOf="@id/textPost"
-        tools:text="70" />
+        android:text="70" />
 
     <ImageView
         android:id="@+id/share"
@@ -97,7 +97,7 @@
         app:layout_constraintBottom_toBottomOf="@id/share"
         app:layout_constraintStart_toEndOf="@id/share"
         app:layout_constraintTop_toBottomOf="@id/textPost"
-        tools:text="15" />
+        android:text="15" />
 
     <ImageView
         android:id="@+id/view"
@@ -117,7 +117,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/textPost"
         android:layout_marginEnd="10dp"
-        tools:text="150" />
+        android:text="150" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
