@@ -61,14 +61,15 @@
         app:layout_constraintTop_toBottomOf="@id/headerBarrier"
         android:text="@string/textPost"/>
 
-    <ImageView
+    <ImageButton
         android:id="@+id/like"
         android:layout_width="24dp"
         android:layout_height="24dp"
         android:layout_marginStart="10dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/textPost"
-        app:srcCompat="@drawable/ic_baseline_favorite_border_24" />
+        app:srcCompat="@drawable/ic_baseline_favorite_border_24"
+        android:background="@color/white"/>
 
     <TextView
         android:id="@+id/countLikes"
@@ -78,16 +79,17 @@
         app:layout_constraintBottom_toBottomOf="@id/like"
         app:layout_constraintStart_toEndOf="@id/like"
         app:layout_constraintTop_toBottomOf="@id/textPost"
-        android:text="70" />
+        android:text="0" />
 
-    <ImageView
+    <ImageButton
         android:id="@+id/share"
         android:layout_width="24dp"
         android:layout_height="24dp"
         android:layout_marginStart="10dp"
         app:layout_constraintStart_toEndOf="@id/countLikes"
         app:layout_constraintTop_toBottomOf="@id/textPost"
-        app:srcCompat="@drawable/ic_baseline_share_24" />
+        app:srcCompat="@drawable/ic_baseline_share_24"
+        android:background="@color/white"/>
 
     <TextView
         android:id="@+id/countShare"
@@ -97,7 +99,7 @@
         app:layout_constraintBottom_toBottomOf="@id/share"
         app:layout_constraintStart_toEndOf="@id/share"
         app:layout_constraintTop_toBottomOf="@id/textPost"
-        android:text="15" />
+        android:text="0" />
 
     <ImageView
         android:id="@+id/view"
