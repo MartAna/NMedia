@@ -11,4 +11,6 @@ class PostViewModel : ViewModel() {
     val data by repository::data
 
     fun onLikedClicked() = repository.like()
+
+    fun onShareClicked() = repository.share()
 }

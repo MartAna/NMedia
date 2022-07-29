@@ -6,8 +6,6 @@ import androidx.appcompat.app.AppCompatActivity
 import ru.netology.nmedia.databinding.ActivityMainBinding
 import ru.netology.nmedia.viewModel.PostViewModel
 
-var countShareText = 1098
-var countLikeText = 10
 
 class MainActivity : AppCompatActivity() {
 
@@ -25,8 +23,8 @@ class MainActivity : AppCompatActivity() {
                 textAuthor.text = post.author
                 data.text = post.published
                 textPost.text = post.content
-                countLikes.text = countLikes(post.likedByMe)
-                countShare.text = correctNumberNotation(countShareText)
+                countLikes.text = correctNumberNotation(post.likes)
+                countShare.text = correctNumberNotation(post.share)
                 like.setImageResource(likeIcon(post.likedByMe))
 
 
@@ -34,8 +32,7 @@ class MainActivity : AppCompatActivity() {
                     viewModel.onLikedClicked()
                 }
                 share.setOnClickListener {
-                    countShareText++
-                    countShare.text = correctNumberNotation(countShareText)
+                    viewModel.onShareClicked()
                 }
             }
 
@@ -45,9 +42,6 @@ class MainActivity : AppCompatActivity() {
 
     private fun likeIcon(likedByMe: Boolean) =
         if (likedByMe) R.drawable.ic_like_24 else R.drawable.ic_baseline_favorite_border_24
-
-    private fun countLikes(likedByMe: Boolean) =
-        if (likedByMe)correctNumberNotation(countLikeText + 1) else correctNumberNotation(countLikeText)
 }
 
 private fun correctNumberNotation(count: Int): String {

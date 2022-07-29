@@ -20,21 +20,34 @@ class InMemoryPostRepository : PostRepository {
                     "- помочь встать на путь роста и начать цепочку " +
                     "перемен -> https://netology.ru",
             published = "08.07.2022",
-            likedByMe = false
+            likes = 999,
+            likedByMe = false,
+            share = 1099
+
         )
     )
 
 
     override fun like() {
-        val currentPost = checkNotNull(data.value){
+        val currentPost = checkNotNull(data.value) {
+            "Data value should not be null"
+        }
+        data.value =
+            if (currentPost.likedByMe) currentPost.copy(
+                likedByMe = !currentPost.likedByMe,
+                likes = currentPost.likes - 1
+            ) else currentPost.copy(
+                likedByMe = !currentPost.likedByMe,
+                likes = currentPost.likes + 1
+            )
+    }
+
+    override fun share() {
+        val currentPost = checkNotNull(data.value) {
             "Data value should not be null"
         }
 
-        val likedPost = currentPost.copy(
-            likedByMe = !currentPost.likedByMe
-        )
-
-        data.value = likedPost
+        data.value = currentPost.copy(share = currentPost.share + 1)
     }
 
 
