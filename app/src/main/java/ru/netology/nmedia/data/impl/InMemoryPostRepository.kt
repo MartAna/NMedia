@@ -23,10 +23,8 @@ class InMemoryPostRepository : PostRepository {
             likes = 999,
             likedByMe = false,
             share = 1099
-
         )
     )
-
 
     override fun like() {
         val currentPost = checkNotNull(data.value) {
@@ -46,9 +44,6 @@ class InMemoryPostRepository : PostRepository {
         val currentPost = checkNotNull(data.value) {
             "Data value should not be null"
         }
-
         data.value = currentPost.copy(share = currentPost.share + 1)
     }
-
-
 }
