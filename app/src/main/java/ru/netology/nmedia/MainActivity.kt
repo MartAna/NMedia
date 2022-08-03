@@ -16,6 +16,12 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         val binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        val adapter = createAdapter(binding)
+        binding.postsRecyclerView.adapter = adapter
+        subscribe(binding, adapter)
+    }
+
+    private fun createAdapter(binding: ActivityMainBinding): PostsAdapter {
         val adapter = PostsAdapter(
             onLikedClicked = { post ->
                 viewModel.onLikedClicked(post)
@@ -24,7 +30,10 @@ class MainActivity : AppCompatActivity() {
                 viewModel.onShareClicked(post)
             }
         )
-        binding.postsRecyclerView.adapter = adapter
+        return adapter
+    }
+
+    private fun subscribe(binding: ActivityMainBinding, adapter: PostsAdapter) {
         viewModel.data.observe(this) { posts ->
             adapter.submitList(posts)
         }
