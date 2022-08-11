@@ -99,4 +99,27 @@ class InMemoryPostRepository : PostRepository {
             if (post.id == postId) post.copy(share = post.share + 1) else post
         }
     }
+
+    override fun delete(postId: Long) {
+        posts = posts.filterNot { post ->
+            post.id == postId
+        }
+    }
+
+    override fun save(post: Post) {
+        if (post.id == PostRepository.newPostId) create(post) else update(post)
+
+    }
+
+    private fun update(post: Post) {
+        posts = posts.map {
+            if (it.id == post.id) post else it
+        }
+    }
+
+    private fun create(post: Post) {
+        data.value = listOf(post.copy(
+            id = (posts.size + 1).toLong())
+        ) + posts
+    }
 }
