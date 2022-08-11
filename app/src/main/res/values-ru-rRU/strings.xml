@@ -7,5 +7,6 @@
     <string name="description_post_save">Сохранить</string>
     <string name="edit">Изменить</string>
     <string name="edit_message">Редактирование</string>
+    <string name="like">Нравится</string>
     />
 </resources>
