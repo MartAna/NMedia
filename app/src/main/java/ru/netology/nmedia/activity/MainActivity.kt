@@ -2,13 +2,12 @@ package ru.netology.nmedia.activity
 
 import android.content.Intent
 import android.os.Bundle
-import android.view.View
+import androidx.activity.result.launch
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import ru.netology.nmedia.R
 import ru.netology.nmedia.adapter.PostsAdapter
 import ru.netology.nmedia.databinding.ActivityMainBinding
-import ru.netology.nmedia.util.hideKeyboard
 import ru.netology.nmedia.viewModel.PostViewModel
 
 
@@ -24,43 +23,53 @@ class MainActivity : AppCompatActivity() {
         binding.postsRecyclerView.adapter = adapter
         subscribe(adapter)
         createNewPost(binding)
-        cancelEditPost(binding)
+        //cancelEditPost(binding)
         shareContent()
+
     }
 
     private fun createNewPost(binding: ActivityMainBinding) {
-        binding.save.setOnClickListener {
-            with(binding.contentEditText) {
-                val content = text.toString()
-                viewModel.onSaveClicked(content)
-                clearFocus()
-                hideKeyboard()
-            }
-            viewModel.currentPost.observe(this) { currentPost ->
-                with(binding) {
-                    val content = currentPost?.content
-                    contentEditText.setText(content)
-                    groupView.visibility = View.GONE
-                    if (content != null) {
-                        contentEditText.requestFocus()
-                        groupView.visibility = View.VISIBLE
-                        postEdit.text = content
-                    }
-                }
-            }
+        binding.fab.setOnClickListener {
+            // with(binding.contentEditText) {
+            //   val content = text.toString()
+            viewModel.onAddClicked()
+            //clearFocus()
+            // hideKeyboard()
         }
+
+        val postContentActivityLauncher = registerForActivityResult(PostContentActivity.ResultContract()
+        ) { postContent ->
+            postContent ?: return@registerForActivityResult
+            viewModel.onSaveClicked(postContent)
+        }
+        viewModel.navigateToPostContentScreenEvent.observe(this) {
+            postContentActivityLauncher.launch()
+
+        }
+        /* viewModel.currentPost.observe(this) { currentPost ->
+             with(binding) {
+                 val content = currentPost?.content
+                 contentEditText.setText(content)
+                 groupView.visibility = View.GONE
+                 if (content != null) {
+                     contentEditText.requestFocus()
+                     groupView.visibility = View.VISIBLE
+                     postEdit.text = content
+                 }
+             }
+         }*/
     }
 
-    private fun cancelEditPost(binding: ActivityMainBinding) {
-        binding.cancel.setOnClickListener {
-            with(binding) {
-                val content = postEdit.text.toString()
-                viewModel.onSaveClicked(content)
-                contentEditText.clearFocus()
-                contentEditText.hideKeyboard()
-            }
-        }
-    }
+    /* private fun cancelEditPost(binding: ActivityMainBinding) {
+         binding.cancel.setOnClickListener {
+             with(binding) {
+                 val content = postEdit.text.toString()
+                 viewModel.onSaveClicked(content)
+                 contentEditText.clearFocus()
+                 contentEditText.hideKeyboard()
+             }
+         }
+     }*/
 
     private fun subscribe(adapter: PostsAdapter) {
         viewModel.data.observe(this) { posts ->

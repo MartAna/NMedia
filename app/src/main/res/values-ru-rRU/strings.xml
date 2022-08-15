@@ -9,5 +9,6 @@
     <string name="edit_message">Редактирование</string>
     <string name="like">Нравится</string>
     <string name="chooser_share_post">Поделиться</string>
+    <string name="add_post">Добавить</string>
     />
 </resources>

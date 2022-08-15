@@ -15,7 +15,7 @@ class PostViewModel : ViewModel(), PostInteractionListener {
     val data get() = repository.data
 
     val sharePostContent = SingleLiveEvent<String>()
-
+    val navigateToPostContentScreenEvent = SingleLiveEvent<Unit>()
     val currentPost = MutableLiveData<Post?>(null)
 
     override fun onLikedClicked(post: Post) =
@@ -46,5 +46,9 @@ class PostViewModel : ViewModel(), PostInteractionListener {
 
     override fun onEditClicked(post: Post) {
         currentPost.value = post
+    }
+
+    fun onAddClicked() {
+        navigateToPostContentScreenEvent.call()
     }
 }
