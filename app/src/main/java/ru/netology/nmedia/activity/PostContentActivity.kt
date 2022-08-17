@@ -1,9 +1,9 @@
 package ru.netology.nmedia.activity
 
-import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.view.View
 import androidx.activity.result.contract.ActivityResultContract
 import androidx.appcompat.app.AppCompatActivity
 import ru.netology.nmedia.databinding.NewPostContentBinding
@@ -16,28 +16,45 @@ class PostContentActivity : AppCompatActivity() {
 
         val binding = NewPostContentBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        binding.newContent.requestFocus()
+
+        val intent = intent ?: return
+
+        val content = intent.getStringExtra(Intent.EXTRA_TEXT)
+        if (content.isNullOrBlank()) {
+            binding.newContent.requestFocus()
+        } else {
+            with(binding) {
+                newContent.setText(content)
+                newContent.requestFocus()
+                groupView.visibility = View.VISIBLE
+                postEdit.text = content
+            }
+        }
         binding.ok.setOnClickListener {
-            val intent = Intent()
+            val resultIntent = Intent()
             val text = binding.newContent.text
             if (text.isNullOrBlank()) {
-                setResult(Activity.RESULT_CANCELED, intent)
+                setResult(RESULT_CANCELED, resultIntent)
             } else {
-                val content = text.toString()
-                intent.putExtra(RESULT_KEY, content)
-                setResult(Activity.RESULT_OK, intent)
+                val textNew = text.toString()
+                resultIntent.putExtra(RESULT_KEY, textNew)
+                setResult(RESULT_OK, resultIntent)
             }
             finish()
         }
     }
 
-    class ResultContract : ActivityResultContract<Unit, String?>() {
+    class ResultContract : ActivityResultContract<String?, String?>() {
 
-        override fun createIntent(context: Context, input: Unit) =
-            Intent(context, PostContentActivity::class.java)
+        override fun createIntent(context: Context, input: String?): Intent {
+            val intent = Intent(context, PostContentActivity::class.java)
+            intent.putExtra(Intent.EXTRA_TEXT, input)
+            print(input)
+            return intent
+        }
 
         override fun parseResult(resultCode: Int, intent: Intent?) =
-            if (resultCode == Activity.RESULT_OK) {
+            if (resultCode == RESULT_OK) {
                 intent?.getStringExtra(RESULT_KEY)
             } else null
     }
