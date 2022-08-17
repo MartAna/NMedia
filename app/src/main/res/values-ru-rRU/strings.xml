@@ -10,5 +10,6 @@
     <string name="like">Нравится</string>
     <string name="chooser_share_post">Поделиться</string>
     <string name="add_post">Добавить</string>
+    <string name="video">Видео</string>
     />
 </resources>

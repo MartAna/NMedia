@@ -32,7 +32,8 @@ class InMemoryPostRepository : PostRepository {
                 published = "08.07.2022",
                 likes = 999,
                 likedByMe = false,
-                share = 1099
+                share = 1099,
+                video = "https://www.youtube.com/watch?v=WhWc3b3KhnY"
             ),
             Post(
                 id = 2,
@@ -118,8 +119,10 @@ class InMemoryPostRepository : PostRepository {
     }
 
     private fun create(post: Post) {
-        data.value = listOf(post.copy(
-            id = (posts.size + 1).toLong())
+        data.value = listOf(
+            post.copy(
+                id = (posts.size + 1).toLong()
+            )
         ) + posts
     }
 }
