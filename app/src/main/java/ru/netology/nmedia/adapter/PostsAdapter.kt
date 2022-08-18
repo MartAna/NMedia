@@ -82,7 +82,8 @@ class PostsAdapter(
                 more.setOnClickListener { popupMenu.show() }
                 if (post.video != null) {
                     groupVideo.visibility = View.VISIBLE
-                }
+                } else
+                    groupVideo.visibility = View.GONE
             }
         }
 
