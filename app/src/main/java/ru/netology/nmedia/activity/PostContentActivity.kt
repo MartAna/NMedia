@@ -16,9 +16,13 @@ class PostContentActivity : AppCompatActivity() {
 
         val binding = NewPostContentBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        openIntent(binding)
+        savePost(binding)
+        cancelEditPost(binding)
+    }
 
+    private fun openIntent(binding: NewPostContentBinding) {
         val intent = intent ?: return
-
         val content = intent.getStringExtra(Intent.EXTRA_TEXT)
         if (content.isNullOrBlank()) {
             binding.newContent.requestFocus()
@@ -30,6 +34,9 @@ class PostContentActivity : AppCompatActivity() {
                 postEdit.text = content
             }
         }
+    }
+
+    private fun savePost(binding: NewPostContentBinding) {
         binding.ok.setOnClickListener {
             val resultIntent = Intent()
             val text = binding.newContent.text
@@ -41,6 +48,18 @@ class PostContentActivity : AppCompatActivity() {
                 setResult(RESULT_OK, resultIntent)
             }
             finish()
+        }
+    }
+
+    private fun cancelEditPost(binding: NewPostContentBinding) {
+        binding.cancel.setOnClickListener {
+            with(binding) {
+                val resultIntent = Intent()
+                val content = postEdit.text.toString()
+                resultIntent.putExtra(RESULT_KEY, content)
+                setResult(RESULT_OK, resultIntent)
+                finish()
+            }
         }
     }
 
