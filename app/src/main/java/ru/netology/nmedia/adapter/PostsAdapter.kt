@@ -68,6 +68,9 @@ class PostsAdapter(
             binding.play.setOnClickListener {
                 listener.onVideoClicked(post)
             }
+            binding.itemContainer.setOnClickListener {
+                listener.onPostClicked(post)
+            }
         }
 
         fun bind(post: Post) {

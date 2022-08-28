@@ -18,10 +18,12 @@ class PostViewModel(
 
     val data get() = repository.data
 
-    val sharePostContent = SingleLiveEvent<String>()
-    val navigateToPostContentScreenEvent = SingleLiveEvent<Unit>()
+    val sharePostContent = SingleLiveEvent<String?>()
     val currentPost = MutableLiveData<Post?>(null)
     val urlVideo = SingleLiveEvent<String>()
+    val navigateToPost = SingleLiveEvent<Long>()
+    val deletePost = SingleLiveEvent<Unit>()
+
 
     override fun onLikedClicked(post: Post) =
         repository.like(post.id)
@@ -31,8 +33,10 @@ class PostViewModel(
         sharePostContent.value = post.content
     }
 
-    override fun onDeleteClicked(post: Post) =
+    override fun onDeleteClicked(post: Post) {
         repository.delete(post.id)
+        deletePost.call()
+    }
 
 
     override fun onSaveClicked(content: String) {
@@ -56,10 +60,9 @@ class PostViewModel(
     override fun onVideoClicked(post: Post) {
         val url = post.video ?: return
         urlVideo.value = url
-        print(url)
     }
 
-    fun onAddClicked() {
-        navigateToPostContentScreenEvent.call()
+    override fun onPostClicked(post: Post) {
+        navigateToPost.value = post.id
     }
 }
