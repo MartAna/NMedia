@@ -74,7 +74,6 @@ class PostFragment : Fragment() {
             startActivity(shareIntent)
         }
 
-
         return binding.root
     }
 
